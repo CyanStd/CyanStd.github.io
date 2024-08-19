@@ -1522,7 +1522,7 @@ article .content .caption {
 }
 .highlight .code .comment,
 .highlight .code .quote {
-  color: #d14;
+  color: #ff8752;
   font-style: italic;
 }
 .highlight .code .keyword,
@@ -1540,7 +1540,7 @@ article .content .caption {
 }
 .highlight .code .string,
 .highlight .code .doctag {
-  color: #d14;
+  color: #ff8752;
 }
 .highlight .code .title,
 .highlight .code .section,
