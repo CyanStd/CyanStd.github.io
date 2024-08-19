@@ -1517,12 +1517,12 @@ article .content .caption {
   content: ")";
 }
 .highlight {
-  color: #333;
-  background: #f8f8f8;
+  color: #0024a0;
+  background: #222330;
 }
 .highlight .code .comment,
 .highlight .code .quote {
-  color: #998;
+  color: #d16920;
   font-style: italic;
 }
 .highlight .code .keyword,
