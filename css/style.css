@@ -1517,8 +1517,8 @@ article .content .caption {
   content: ")";
 }
 .highlight {
-  color: #f8f8f8;
-  background: #333;
+  color: #333;
+  background: #f8f8f8;
 }
 .highlight .code .comment,
 .highlight .code .quote {
