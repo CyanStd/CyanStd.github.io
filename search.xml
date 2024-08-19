@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>about</title>
+      <link href="/2024/08/19/about/"/>
+      <url>/2024/08/19/about/</url>
+      
+        <content type="html"><![CDATA[<p>这是 <span class="math inline">\(\text{CyanStd}\)</span> 的<code>Blog</code>。</p><p>主要用于记录 <code>OI</code> 学习笔记、一些粗略的 <code>IT</code>内容和其他杂乱的文章；</p><p>可以在 <a href="https://www.luogu.com.cn/user/762010">Luogu</a>、<ahref="https://www.codeforces.com/profile/CyanStd">Codeforces</a>等平台找到我。</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> about </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Hello World</title>
       <link href="/2024/08/17/hello-world/"/>
       <url>/2024/08/17/hello-world/</url>
