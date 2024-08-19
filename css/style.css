@@ -1528,7 +1528,7 @@ article .content .caption {
 .highlight .code .keyword,
 .highlight .code .selector-tag,
 .highlight .code .subst {
-  color: #f8f8f8;
+  color: #333;
   font-weight: bold;
 }
 .highlight .code .number,
