@@ -82,7 +82,7 @@
       <link href="/2025/07/19/hello-world/"/>
       <url>/2025/07/19/hello-world/</url>
       
-        <content type="html"><![CDATA[<p>博客搭好了！！！</p><p>CyanStd 的博客其实早就搭好了，只是现在才投入使用（</p><p>使用 Hexo 博客+Github 的方式建成了 Cyanblog，在搭建过程中使用了由 <a href="https://argvchs.github.io/">Argvchs 大佬</a> 维护的 <a href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX 主题</a> orzorz</p><p>Cyanblog 会记录一些学习笔记，娱乐内容以及可能与工程有关的文章（之后可能会添加其他），请多多支持。</p><p>看到有启发的或喜欢内容可以点赞支持；有疑问想要探讨或斧正拙作也欢迎在评论区评论。</p>]]></content>
+        <content type="html"><![CDATA[<p>博客搭好了！！！</p><p>CyanStd 的博客其实早就搭好了，只是现在才投入使用（</p><p>使用 Hexo 博客+Github 的方式建成了 Cyanblog，在搭建过程中使用了由 <a href="https://argvchs.github.io/">Argvchs 大佬</a> 维护的 <a href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX 主题</a> orzorz</p><p>Cyanblog 会记录一些学习笔记，娱乐内容以及可能与工程有关的文章（之后可能会添加其他），请多多支持。</p><p>看到有启发的或喜欢内容可以点赞支持；有疑问想要探讨或斧正拙作也欢迎在评论区评论。</p><p>next:</p><pre><code>- tags字符云- 博客背景- 首页展示页- 色彩主题- 评论- 数学公式快速轻量渲染，代码高亮- about</code></pre>]]></content>
       
       
       <categories>
