@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+  <title>Categories | CyanBlog</title>
+  <meta name="description" content="CyanStd&#39;s Blog">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Categories">
+<meta property="og:url" content="https://cyanstd.github.io/categories/">
+<meta property="og:site_name" content="CyanBlog">
+<meta property="og:description" content="CyanStd&#39;s Blog">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="CyanStd">
+<meta name="twitter:card" content="summary">
+  <link rel="icon" href="/images/logo.svg">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-gb-web@latest/lxgwwenkaigb-regular/result.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-gb-web@latest/lxgwwenkaigb-medium/result.css">
+
+  
+  
+  
+    
+<link rel="stylesheet" href="/css/math.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem('warmpaper-theme');
+        if (saved === 'dark' || saved === 'light') {
+          document.documentElement.setAttribute('data-theme', saved);
+        }
+      } catch (e) {}
+    })();
+  </script>
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+  <div class="site-wrapper">
+    <header class="site-header">
+  <div class="header-inner">
+    <a class="site-title" href="/"><img class="site-logo" src="/images/logo.svg" alt="Logo">CyanBlog</a>
+    <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <span class="nav-toggle-icon"></span>
+    </button>
+    <nav class="site-nav">
+      
+        <a class="nav-link" href="/">Home</a>
+      
+        <a class="nav-link" href="/archives">Archives</a>
+      
+        <a class="nav-link" href="/tags">Tags</a>
+      
+        <a class="nav-link" href="/categories">Categories</a>
+      
+        <a class="nav-link" href="/about">About</a>
+      
+      <button class="theme-toggle" type="button" aria-label="切换主题" title="切换主题" data-theme-state="light">
+        <svg class="icon-sun" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="4"/>
+          <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+        </svg>
+        <svg class="icon-moon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+    </nav>
+  </div>
+</header>
+
+    <main class="main-content">
+      <div class="archive">
+  <h1 class="archive-title">Categories</h1>
+  
+    <div class="category-tree" id="categoryTree">
+      
+        <div class="category-item">
+          <div class="category-header">
+            <span class="category-arrow">▶</span>
+            <span class="category-name">OI笔记</span>
+            <span class="category-count">1</span>
+          </div>
+          <div class="category-posts">
+            <div class="category-posts-wrap">
+              
+                
+                  <a class="category-post" href="/2025/07/19/treap-study-notes/">
+                    <span class="post-title">Treap 学习笔记</span>
+                    
+                      <span class="post-date">2025-07-19</span>
+                    
+                  </a>
+                
+              
+            </div>
+          </div>
+        </div>
+      
+        <div class="category-item">
+          <div class="category-header">
+            <span class="category-arrow">▶</span>
+            <span class="category-name">娱乐•其他</span>
+            <span class="category-count">1</span>
+          </div>
+          <div class="category-posts">
+            <div class="category-posts-wrap">
+              
+                
+                  <a class="category-post" href="/2025/07/19/hello-world/">
+                    <span class="post-title">Hello,World!</span>
+                    
+                      <span class="post-date">2025-07-19</span>
+                    
+                  </a>
+                
+              
+            </div>
+          </div>
+        </div>
+      
+    </div>
+  
+</div>
+
+<style>
+.category-tree { max-width: 760px; margin: 0 auto; }
+.category-item {
+  margin-bottom: 10px;
+  border-radius: 12px;
+  background: #fdfcfa;
+  border: 1px solid #f0ebe4;
+  overflow: hidden;
+  transition: box-shadow .3s;
+}
+.category-item:hover { box-shadow: 0 2px 10px rgba(0,0,0,.05); }
+.category-header {
+  display: flex; align-items: center;
+  padding: 14px 20px; cursor: pointer; user-select: none; gap: 10px;
+}
+.category-arrow {
+  font-size: 12px; color: #b0a99f;
+  transition: transform .3s ease; width: 14px; text-align: center;
+}
+.category-item.expanded .category-arrow { transform: rotate(90deg); }
+.category-name { flex: 1; font-size: 15px; color: #555; font-weight: 500; }
+.category-count {
+  font-size: 12px; color: #bbb; background: #f3efe8;
+  padding: 2px 10px; border-radius: 10px;
+}
+.category-posts {
+  display: grid; grid-template-rows: 0fr;
+  transition: grid-template-rows .35s ease;
+}
+.category-item.expanded .category-posts { grid-template-rows: 1fr; }
+.category-posts-wrap { overflow: hidden; min-height: 0; padding: 0 20px; }
+.category-post {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 11px 0; border-top: 1px dashed #eae4db;
+  text-decoration: none; color: #777; font-size: 14px;
+  transition: color .2s;
+}
+.category-post:first-child { border-top: 1px solid #e8e2d9; }
+.category-post:hover { color: #c28e5f; }
+.post-title { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 72%; }
+.post-date { font-size: 12px; color: #ccc; flex-shrink: 0; }
+.no-posts {
+  display: block; padding: 16px 0; font-size: 13px;
+  color: #ccc; text-align: center; border-top: 1px solid #e8e2d9;
+}
+</style>
+
+<script>
+(function(){
+  var tree = document.getElementById('categoryTree');
+  if(!tree) return;
+  tree.addEventListener('click', function(e){
+    var h = e.target.closest('.category-header');
+    if(!h) return;
+    h.parentElement.classList.toggle('expanded');
+  });
+})();
+</script>
+
+    </main>
+    <footer class="site-footer">
+  <div class="footer-inner">
+    
+      <p>&copy; 2026 CyanStd</p>
+    
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &middot; Theme <a href="https://github.com/finch-xu/hexo-theme-warmpaper" target="_blank" rel="noopener">Warmpaper</a></p>
+  </div>
+</footer>
+
+  </div>
+  
+<script src="/js/main.js"></script>
+
+</body>
+</html>
