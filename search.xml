@@ -4,6 +4,19 @@
   
     
     <entry>
+      <title>Sol-CF599B</title>
+      <link href="/2026/08/11/Sol-CF599B/"/>
+      <url>/2026/08/11/Sol-CF599B/</url>
+      
+        <content type="html"><![CDATA[<p>完整题意详见题面。</p><p>已知 $b<em>i=f</em>{a_i}$，求数组 $a$ 的值。</p><p>先记录每个 $f_i$ 的值的数量，</p><ul><li><p>当 $f$ 数组中与 $b$ 数组中没有相同的值时，输出 <code>Impossible</code></p></li><li><p>当 $f$ 数组中与 $b$ 数组中有多组相同的值时，输出 <code>Ambiguity</code></p></li><li><p>其余情况输出 <code>Possible</code>。</p></li></ul><p>然后考虑如何求出数组 $a$，</p><p>对于 $b<em>i=f</em>{a<em>i}$，通过 $f$ 数组记录每一个可能的 $a_i$ 的值。易得，数组 $b$ 的长度与 $a$ 的长度相等。在判断合法后输出 $a</em>{b_i}$ 即可。</p><p>时间复杂度 $O(n)$。</p><pre><code class="lang-cpp">#include&lt;bits/stdc++.h&gt;using namespace std;int cnt[100010],b[100010],a[100010];int main()&#123;    int n,m;    cin&gt;&gt;n&gt;&gt;m;    for(int i=1;i&lt;=n;i++)&#123;        int f;        cin&gt;&gt;f;        cnt[f]++;        a[f]=i;    &#125;    for(int i=1;i&lt;=m;i++)&#123;        cin&gt;&gt;b[i];        if(cnt[b[i]]==0)&#123;            cout&lt;&lt;&quot;Impossible&quot;;            return 0;        &#125;    &#125;    for(int i=1;i&lt;=m;i++)&#123;        if(cnt[b[i]]&gt;1)&#123;            cout&lt;&lt;&quot;Ambiguity&quot;;            return 0;        &#125;    &#125;    cout&lt;&lt;&quot;Possible&quot;&lt;&lt;endl;    for(int i=1;i&lt;=m;i++)        cout&lt;&lt;a[b[i]]&lt;&lt;&#39; &#39;;    return 0;&#125;</code></pre>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>CSP-S2025</title>
       <link href="/2025/08/07/csps2025notes/"/>
       <url>/2025/08/07/csps2025notes/</url>
