@@ -138,28 +138,20 @@
   </footer>
 
   
-    
-<script>
+    <script>
   window.MathJax = {
     tex: {
       inlineMath: [['$', '$'], ['\\(', '\\)']],
       displayMath: [['$$', '$$'], ['\\[', '\\]']],
       processEscapes: true
     },
-    options: {
-      // Skip the TOC sidebar and nav so heading math copied into the TOC
-      // isn't typeset a second time.
-      ignoreHtmlClass: 'toc-sidebar|site-nav',
-      enableMenu: false
-    }
+    options: { enableMenu: false }
   };
 </script>
-
 <script defer
         src="https://cdn.jsdelivr.net/npm/mathjax@4.1.2/tex-mml-chtml.js"
-        integrity="sha384-Nfw2UPOp2WaWfAjGXccSL8qKx4KWXN9NUonXtPcotBXKSqHMyNWrahYzDzIXhpTy"
+        onerror="this.onerror=null;this.src='https://unpkg.com/mathjax@4.1.2/tex-mml-chtml.js'"
         crossorigin="anonymous"></script>
-
   
 </article>
 
