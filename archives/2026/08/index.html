@@ -116,6 +116,35 @@
 
   </div>
   
+
+<script>
+(function () {
+  'use strict';
+  // Skip if no code blocks on the page
+  if (!document.querySelector('figure.highlight pre, pre code')) return;
+
+  // Skip if Hexo already applied server-side highlighting
+  var hlSpan = document.querySelector('figure.highlight span.hl');
+  if (hlSpan) return;
+
+  var version = '11.9.0';
+
+  var script = document.createElement('script');
+  script.src = 'https://cdn.jsdelivr.net/npm/highlight.js@' + version + '/lib/common/highlight.min.js';
+  script.onload = function () {
+    if (!window.hljs) return;
+    window.hljs.configure({
+      // Match the theme's CSS class prefix (hljs-*)
+      classPrefix: 'hljs-'
+    });
+    window.hljs.highlightAll();
+  };
+  document.head.appendChild(script);
+})();
+</script>
+
+
+  
 <script src="/js/main.js"></script>
 
 </body>

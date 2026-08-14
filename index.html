@@ -125,11 +125,9 @@
 
 此时有三种情况：
 
-
 点在 $A$ 点左侧
 
-
-点在 $A$、$B$ 点之间，此时...</p>
+点在 $A$、$B$ 点之间，此时距离...</p>
     
   </div>
   <a class="read-more" href="/2026/08/11/Sol-CF1486B/">Read More &rarr;</a>
@@ -153,21 +151,18 @@
   <div class="post-card-excerpt">
     
       <p>完整题意详见题面。
-已知 $b_i=f_{a_i}$，求数组 $a$ 的值。
+已知 $bi=f{a_i}$，求数组 $a$ 的值。
 先记录每个 $f_i$ 的值的数量，
-
 
 当 $f$ 数组中与 $b$ 数组中没有相同的值时，输出 Impossible
 
-
 当 $f$ 数组中与 $b$ 数组中有多组相同的值时，输出 Ambiguity
-
 
 其余情况输出 Possible。
 
 
 然后考虑如何求出数组 $a$，
-对于 $b_i=f_{a_i}$，通过 $...</p>
+对于 $bi=f{ai}$，通过 $f$ 数组记录每...</p>
     
   </div>
   <a class="read-more" href="/2026/08/11/Sol-CF599B/">Read More &rarr;</a>
@@ -208,8 +203,7 @@
   </div>
   <div class="post-card-excerpt">
     
-      <p>前置知识
-二叉搜索树指任意节点的左子树权值都小于
+      <p>前置知识二叉搜索树指任意节点的左子树权值都小于
 平衡树指任意节点的左右子树高度差小于等于 $1$ 的二叉搜索树。
 Treap 是平衡树的一种，按照实现方式可以分为有旋 Treap 和无旋 Treap（也被称为 FHQ-Treap），有旋 Treap
 ...</p>
@@ -278,6 +272,35 @@ Cyanblog 会记录一些学习笔记，娱乐内容以及可能与工程有关�
 </footer>
 
   </div>
+  
+
+<script>
+(function () {
+  'use strict';
+  // Skip if no code blocks on the page
+  if (!document.querySelector('figure.highlight pre, pre code')) return;
+
+  // Skip if Hexo already applied server-side highlighting
+  var hlSpan = document.querySelector('figure.highlight span.hl');
+  if (hlSpan) return;
+
+  var version = '11.9.0';
+
+  var script = document.createElement('script');
+  script.src = 'https://cdn.jsdelivr.net/npm/highlight.js@' + version + '/lib/common/highlight.min.js';
+  script.onload = function () {
+    if (!window.hljs) return;
+    window.hljs.configure({
+      // Match the theme's CSS class prefix (hljs-*)
+      classPrefix: 'hljs-'
+    });
+    window.hljs.highlightAll();
+  };
+  document.head.appendChild(script);
+})();
+</script>
+
+
   
 <script src="/js/main.js"></script>
 
