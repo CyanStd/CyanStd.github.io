@@ -646,13 +646,14 @@ img {
 }
 
 .post-content pre {
-  background: var(--color-code-bg);
-  border-radius: var(--radius);
-  padding: 1.25em;
-  margin: 1.5em 0;
-  overflow-x: auto;
-  line-height: 1.55;
-  border: 1px solid var(--color-border-light);
+    background: var(--color-code-bg);
+    border-radius: var(--radius);
+    padding: 1.25em 1.25rem;
+    margin: 1.5em 0;
+    overflow-x: auto;
+    line-height: 1.55;
+    border: 1px solid var(--color-border-light);
+    tab-size: 4;
 }
 
 .post-content pre code {
@@ -703,8 +704,9 @@ figure.highlight .gutter pre {
 }
 
 figure.highlight .code pre {
-  padding: 1em 1.25em;
-  overflow-x: auto;
+    padding: 1em 1.25em;
+    overflow-x: auto;
+    tab-size: 4;
 }
 
 figure.highlight .line {

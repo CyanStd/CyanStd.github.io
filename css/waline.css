@@ -68,9 +68,10 @@
 }
 
 [data-waline] pre {
-  overflow: auto;
-  padding: 10px;
-  line-height: 1.45
+    overflow: auto;
+    padding: 10px;
+    line-height: 1.45;
+    tab-size: 4;
 }
 
 [data-waline] pre::-webkit-scrollbar {
