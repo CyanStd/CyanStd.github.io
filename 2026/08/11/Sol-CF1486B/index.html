@@ -116,31 +116,7 @@
 </li>
 </ul>
 <p>由此，可以通过该题，时间复杂度约为 $O(n \log n)$：</p>
-<pre><code class="lang-cpp">#include&lt;bits/stdc++.h&gt;
-using namespace std;
-int x[1010],y[1010];
-int main()&#123;
-    int T;
-    cin&gt;&gt;T;
-    while(T--)&#123;
-        int n;
-        cin&gt;&gt;n;
-        for(int i=1;i&lt;=n;i++)&#123;
-            cin&gt;&gt;x[i]&gt;&gt;y[i];
-        &#125;
-        if(n%2)&#123;
-            cout&lt;&lt;1&lt;&lt;endl;
-            continue;
-        &#125;
-        sort(x+1,x+n+1);
-        sort(y+1,y+n+1);
-        long long ans1=x[n/2+1]-x[n/2]+1,ans2=y[n/2+1]-y[n/2]+1;
-        cout&lt;&lt;(long long)(ans1*ans2*1ll)&lt;&lt;endl;
-    &#125;
-    return 0;
-&#125;
-</code></pre>
-
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">int</span> x[<span class="number">1010</span>],y[<span class="number">1010</span>];</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="type">int</span> T;</span><br><span class="line">	cin&gt;&gt;T;</span><br><span class="line">    <span class="keyword">while</span>(T--)&#123;</span><br><span class="line">        <span class="type">int</span> n;</span><br><span class="line">        cin&gt;&gt;n;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;</span><br><span class="line">			cin&gt;&gt;x[i]&gt;&gt;y[i];</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(n%<span class="number">2</span>)&#123;</span><br><span class="line">			cout&lt;&lt;<span class="number">1</span>&lt;&lt;endl;</span><br><span class="line">			<span class="keyword">continue</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">sort</span>(x<span class="number">+1</span>,x+n<span class="number">+1</span>);</span><br><span class="line">		<span class="built_in">sort</span>(y<span class="number">+1</span>,y+n<span class="number">+1</span>);</span><br><span class="line">		<span class="type">long</span> <span class="type">long</span> ans1=x[n/<span class="number">2</span><span class="number">+1</span>]-x[n/<span class="number">2</span>]<span class="number">+1</span>,ans2=y[n/<span class="number">2</span><span class="number">+1</span>]-y[n/<span class="number">2</span>]<span class="number">+1</span>;</span><br><span class="line">		cout&lt;&lt;(<span class="type">long</span> <span class="type">long</span>)(ans1*ans2*<span class="number">1ll</span>)&lt;&lt;endl;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
     </div>
 
     

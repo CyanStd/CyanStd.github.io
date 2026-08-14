@@ -108,38 +108,7 @@
 <p>然后考虑如何求出数组 $a$，</p>
 <p>对于 $b<em>i=f</em>{a<em>i}$，通过 $f$ 数组记录每一个可能的 $a_i$ 的值。易得，数组 $b$ 的长度与 $a$ 的长度相等。在判断合法后输出 $a</em>{b_i}$ 即可。</p>
 <p>时间复杂度 $O(n)$。</p>
-<pre><code class="lang-cpp">#include&lt;bits/stdc++.h&gt;
-using namespace std;
-int cnt[100010],b[100010],a[100010];
-int main()&#123;
-    int n,m;
-    cin&gt;&gt;n&gt;&gt;m;
-    for(int i=1;i&lt;=n;i++)&#123;
-        int f;
-        cin&gt;&gt;f;
-        cnt[f]++;
-        a[f]=i;
-    &#125;
-    for(int i=1;i&lt;=m;i++)&#123;
-        cin&gt;&gt;b[i];
-        if(cnt[b[i]]==0)&#123;
-            cout&lt;&lt;&quot;Impossible&quot;;
-            return 0;
-        &#125;
-    &#125;
-    for(int i=1;i&lt;=m;i++)&#123;
-        if(cnt[b[i]]&gt;1)&#123;
-            cout&lt;&lt;&quot;Ambiguity&quot;;
-            return 0;
-        &#125;
-    &#125;
-    cout&lt;&lt;&quot;Possible&quot;&lt;&lt;endl;
-    for(int i=1;i&lt;=m;i++)
-        cout&lt;&lt;a[b[i]]&lt;&lt;&#39; &#39;;
-    return 0;
-&#125;
-</code></pre>
-
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">int</span> cnt[<span class="number">100010</span>],b[<span class="number">100010</span>],a[<span class="number">100010</span>];</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="type">int</span> n,m;</span><br><span class="line">	cin&gt;&gt;n&gt;&gt;m;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;</span><br><span class="line">		<span class="type">int</span> f;</span><br><span class="line">		cin&gt;&gt;f;</span><br><span class="line">		cnt[f]++;</span><br><span class="line">		a[f]=i;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=m;i++)&#123;</span><br><span class="line">		cin&gt;&gt;b[i];</span><br><span class="line">		<span class="keyword">if</span>(cnt[b[i]]==<span class="number">0</span>)&#123;</span><br><span class="line">			cout&lt;&lt;<span class="string">&quot;Impossible&quot;</span>;</span><br><span class="line">			<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=m;i++)&#123;</span><br><span class="line">		<span class="keyword">if</span>(cnt[b[i]]&gt;<span class="number">1</span>)&#123;</span><br><span class="line">			cout&lt;&lt;<span class="string">&quot;Ambiguity&quot;</span>;</span><br><span class="line">			<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	cout&lt;&lt;<span class="string">&quot;Possible&quot;</span>&lt;&lt;endl;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=m;i++)</span><br><span class="line">		cout&lt;&lt;a[b[i]]&lt;&lt;<span class="string">&#x27; &#x27;</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
     </div>
 
     
