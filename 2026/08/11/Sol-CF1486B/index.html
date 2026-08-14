@@ -112,7 +112,7 @@
 <ul>
 <li><p>当数轴上有奇数个点时，答案为 $1$；</p>
 </li>
-<li><p>当数轴上有偶数个点时，答案为 $a<em>{\frac{n}{2}+1}-a</em>{\frac{n}{2}}+1$（$a$ 数组已进行升序排序）</p>
+<li><p>当数轴上有偶数个点时，答案为 $a_{\frac{n}{2}+1}-a_{\frac{n}{2}}+1$（$a$ 数组已进行升序排序）</p>
 </li>
 </ul>
 <p>由此，可以通过该题，时间复杂度约为 $O(n \log n)$：</p>
@@ -129,6 +129,8 @@
   <footer class="post-footer">
     
     <nav class="post-nav">
+      
+        <a class="prev" href="/2026/08/14/hello-world/">&laquo; Hello World</a>
       
       
         <a class="next" href="/2026/08/11/Sol-CF599B/">Sol:CF599B Spongebob and Joke &raquo;</a>
@@ -170,12 +172,17 @@
 <script>
 (function () {
   'use strict';
-  // Skip if no code blocks on the page
-  if (!document.querySelector('figure.highlight pre, pre code')) return;
 
-  // Skip if Hexo already applied server-side highlighting
-  var hlSpan = document.querySelector('figure.highlight span.hl');
-  if (hlSpan) return;
+  // --- Guard: bail early if no <pre><code> on the page ---
+  var codeBlocks = document.querySelectorAll('pre code');
+  if (!codeBlocks.length) return;
+
+  // --- Guard: skip if Hexo already applied server-side highlighting ---
+  // hexo-util renders highlighted code as <figure class="highlight"><table>...
+  if (document.querySelector('figure.highlight table')) return;
+
+  // --- Guard: skip if highlight.js already ran (idempotent) ---
+  if (document.querySelector('figure.highlight .hljs, pre code.hljs')) return;
 
   var version = '11.9.0';
 
@@ -183,10 +190,8 @@
   script.src = 'https://cdn.jsdelivr.net/npm/highlight.js@' + version + '/lib/common/highlight.min.js';
   script.onload = function () {
     if (!window.hljs) return;
-    window.hljs.configure({
-      // Match the theme's CSS class prefix (hljs-*)
-      classPrefix: 'hljs-'
-    });
+    // classPrefix ensures generated classes match the theme CSS (hljs-*)
+    window.hljs.configure({ classPrefix: 'hljs-' });
     window.hljs.highlightAll();
   };
   document.head.appendChild(script);

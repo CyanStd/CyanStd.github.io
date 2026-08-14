@@ -85,11 +85,6 @@
           <span class="tag-cloud-count">1</span>
         </a>
       
-        <a class="tag-cloud-item" href="/tags/%E5%A8%B1%E4%B9%90/">
-          #娱乐
-          <span class="tag-cloud-count">1</span>
-        </a>
-      
         <a class="tag-cloud-item" href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
           #学习笔记
           <span class="tag-cloud-count">1</span>
@@ -120,12 +115,17 @@
 <script>
 (function () {
   'use strict';
-  // Skip if no code blocks on the page
-  if (!document.querySelector('figure.highlight pre, pre code')) return;
 
-  // Skip if Hexo already applied server-side highlighting
-  var hlSpan = document.querySelector('figure.highlight span.hl');
-  if (hlSpan) return;
+  // --- Guard: bail early if no <pre><code> on the page ---
+  var codeBlocks = document.querySelectorAll('pre code');
+  if (!codeBlocks.length) return;
+
+  // --- Guard: skip if Hexo already applied server-side highlighting ---
+  // hexo-util renders highlighted code as <figure class="highlight"><table>...
+  if (document.querySelector('figure.highlight table')) return;
+
+  // --- Guard: skip if highlight.js already ran (idempotent) ---
+  if (document.querySelector('figure.highlight .hljs, pre code.hljs')) return;
 
   var version = '11.9.0';
 
@@ -133,10 +133,8 @@
   script.src = 'https://cdn.jsdelivr.net/npm/highlight.js@' + version + '/lib/common/highlight.min.js';
   script.onload = function () {
     if (!window.hljs) return;
-    window.hljs.configure({
-      // Match the theme's CSS class prefix (hljs-*)
-      classPrefix: 'hljs-'
-    });
+    // classPrefix ensures generated classes match the theme CSS (hljs-*)
+    window.hljs.configure({ classPrefix: 'hljs-' });
     window.hljs.highlightAll();
   };
   document.head.appendChild(script);
