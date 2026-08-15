@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+  <title>CyanBlog</title>
+  <meta name="description" content="CyanStd&#39;s Blog">
+<meta property="og:type" content="website">
+<meta property="og:title" content="CyanBlog">
+<meta property="og:url" content="https://cyanstd.github.io/tags/27/">
+<meta property="og:site_name" content="CyanBlog">
+<meta property="og:description" content="CyanStd&#39;s Blog">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="CyanStd">
+<meta name="twitter:card" content="summary">
+  <link rel="icon" href="/images/logo.svg">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-gb-web@latest/lxgwwenkaigb-regular/result.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-gb-web@latest/lxgwwenkaigb-medium/result.css">
+
+  
+  
+  
+    
+<link rel="stylesheet" href="/css/math.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem('warmpaper-theme');
+        if (saved === 'dark' || saved === 'light') {
+          document.documentElement.setAttribute('data-theme', saved);
+        }
+      } catch (e) {}
+    })();
+  </script>
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+  <div class="grid-bg">
+    <canvas id="grid-canvas" aria-hidden="true"></canvas>
+  </div>
+  <div class="site-wrapper">
+    <header class="site-header">
+  <div class="header-inner">
+    <a class="site-title" href="/"><img class="site-logo" src="/images/logo.svg" alt="Logo">CyanBlog</a>
+    <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <span class="nav-toggle-icon"></span>
+    </button>
+    <nav class="site-nav">
+      
+        <a class="nav-link" href="/">Home</a>
+      
+        <a class="nav-link" href="/archives">Archives</a>
+      
+        <a class="nav-link" href="/tags">Tags</a>
+      
+        <a class="nav-link" href="/categories">Categories</a>
+      
+        <a class="nav-link" href="/about">About</a>
+      
+      <button class="theme-toggle" type="button" aria-label="切换主题" title="切换主题" data-theme-state="light">
+        <svg class="icon-sun" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="4"/>
+          <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+        </svg>
+        <svg class="icon-moon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+    </nav>
+  </div>
+</header>
+
+    <main class="main-content">
+      <div class="archive">
+  <h1 class="tag-title"><span>#</span> 27</h1>
+  
+    <div class="archive-post">
+      <span class="archive-post-date">2025-07-19</span>
+      <span class="archive-post-title">
+        <a href="/2025/07/19/treap-study-notes/">Treap 学习笔记</a>
+      </span>
+    </div>
+  
+  
+
+</div>
+
+    </main>
+    <footer class="site-footer">
+  <div class="footer-inner">
+    
+      <p>&copy; 2026 CyanStd</p>
+    
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &middot; Theme <a href="https://github.com/finch-xu/hexo-theme-warmpaper" target="_blank" rel="noopener">Warmpaper</a></p>
+  </div>
+</footer>
+
+  </div>
+  
+
+<script>
+(function () {
+  'use strict';
+
+  // --- Guard: bail early if no <pre><code> on the page ---
+  var codeBlocks = document.querySelectorAll('pre code');
+  if (!codeBlocks.length) return;
+
+  // --- Guard: skip if Hexo already applied server-side highlighting ---
+  // hexo-util renders highlighted code as <figure class="highlight"><table>...
+  if (document.querySelector('figure.highlight table')) return;
+
+  // --- Guard: skip if highlight.js already ran (idempotent) ---
+  if (document.querySelector('figure.highlight .hljs, pre code.hljs')) return;
+
+  var version = '11.9.0';
+
+  var script = document.createElement('script');
+  script.src = 'https://cdn.jsdelivr.net/npm/highlight.js@' + version + '/lib/common/highlight.min.js';
+  script.onload = function () {
+    if (!window.hljs) return;
+    // classPrefix ensures generated classes match the theme CSS (hljs-*)
+    window.hljs.configure({ classPrefix: 'hljs-' });
+    window.hljs.highlightAll();
+  };
+  document.head.appendChild(script);
+})();
+</script>
+
+
+  
+<script src="/js/grid.js"></script>
+
+  
+<script src="/js/main.js"></script>
+
+</body>
+</html>
