@@ -1198,34 +1198,70 @@ figure.highlight .token.deleted {
   color: var(--color-accent);
 }
 
-/* --- Tags Index (cloud) --- */
-.tag-cloud {
+/* --- Tags Index (3D spherical cloud) --- */
+.tag-cloud-3d {
+  position: relative;
+  max-width: var(--content-width);
+  height: 520px;
+  margin: 0 auto;
+  /* Will be overridden to flex by .tag-cloud-fallback */
+  overflow: hidden;
+}
+
+/* Fallback when JS is disabled or on touch devices */
+.tag-cloud-fallback {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  align-content: flex-start;
   gap: 0.6rem;
-  margin-top: 1rem;
+  height: auto;
+  overflow: visible;
+  padding: 1rem 0;
 }
 
 .tag-cloud-item {
+  position: absolute;
+  left: 0;
+  top: 0;
+  /* Position + scale via CSS variables (JS updates instantly) */
+  transform: translate3d(var(--tc-tx, 0), var(--tc-ty, 0), 0)
+             scale(var(--tc-scale, 1));
   display: inline-flex;
   align-items: center;
   gap: 0.3rem;
-  font-size: 0.9rem;
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 500;
   color: var(--color-text-secondary);
   background: var(--color-surface);
-  padding: 0.35rem 0.75rem;
-  border-radius: var(--radius);
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
   border: 1px solid var(--color-border-light);
   box-shadow: var(--shadow-card);
-  transition: color 0.2s, border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+  white-space: nowrap;
+  transition: color 0.2s, border-color 0.2s, box-shadow 0.2s, opacity 0.2s;
+  pointer-events: auto;
+  will-change: transform, opacity;
+  /* Hidden until JS positions them */
+  visibility: hidden;
+}
+
+/* Fallback: show as normal inline items */
+.tag-cloud-fallback .tag-cloud-item {
+  position: static;
+  transform: none;
+  display: inline-flex;
+  visibility: visible;
+  opacity: 1;
 }
 
 .tag-cloud-item:hover {
   color: var(--color-accent);
   border-color: var(--color-accent);
   box-shadow: var(--shadow-card-hover);
-  transform: translateY(-1px);
+  z-index: 100;
+  opacity: 1;
 }
 
 .tag-cloud-count {
