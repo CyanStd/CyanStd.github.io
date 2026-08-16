@@ -1,7 +1,9 @@
 /* Warmpaper 3D Spherical Tag Cloud.
    Tags distributed on a sphere via Fibonacci lattice, projected to 2D.
    Interactions:
-     - DRAG (mousedown + move) rotates the sphere, with inertia.
+     - DRAG (mousedown + move) rotates the sphere via trackball/arcball
+       rotation (quaternion-based, no gimbal lock, surface follows cursor),
+       with inertia after release.
      - HOVER (mouse passing through) repels nearby tags in screen space.
    Uses DOM elements for native clickability + CSS transforms for 60 FPS. */
 (function () {
@@ -26,12 +28,46 @@
   var FOV = 600;                    // perspective distance
   var SPRING_K = 0.025;             // spring stiffness toward rest position
   var DAMPING = 0.86;               // velocity decay per frame
-  var DRAG_SENSITIVITY = 0.005;     // radians of rotation per pixel of drag
   var DRAG_INERTIA = 0.92;          // angular velocity decay after release
   var SCATTER_RADIUS = 120;         // px, screen-space radius of influence
   var SCATTER_STRENGTH = 0.02;      // 3D repulsion force multiplier
-  var MIN_ROT_X = -1.4, MAX_ROT_X = 1.4; // clamp rotX (avoid gimbal flip)
-  var AUTO_ROTATE_SPEED = 0.0015;   // idle auto-rotation
+  var AUTO_ROTATE_SPEED = 0.0015;   // idle auto-rotation (rad/frame)
+
+  /* --- Quaternion helpers (w, x, y, z) --- */
+  function qRotate(v, q) {
+    var w = q[0], x = q[1], y = q[2], z = q[3];
+    var vx = v[0], vy = v[1], vz = v[2];
+    // t = 2 * (q.xyz × v)
+    var tx = 2 * (y * vz - z * vy);
+    var ty = 2 * (z * vx - x * vz);
+    var tz = 2 * (x * vy - y * vx);
+    // v' = v + w*t + (q.xyz × t)
+    return [
+      vx + w * tx + (y * tz - z * ty),
+      vy + w * ty + (z * tx - x * tz),
+      vz + w * tz + (x * ty - y * tx)
+    ];
+  }
+
+  function qMul(a, b) {
+    return [
+      a[0] * b[0] - a[1] * b[1] - a[2] * b[2] - a[3] * b[3],
+      a[0] * b[1] + a[1] * b[0] + a[2] * b[3] - a[3] * b[2],
+      a[0] * b[2] - a[1] * b[3] + a[2] * b[0] + a[3] * b[1],
+      a[0] * b[3] + a[1] * b[2] - a[2] * b[1] + a[3] * b[0]
+    ];
+  }
+
+  function qFromAxisAngle(ax, ay, az, angle) {
+    var h = angle / 2, s = Math.sin(h);
+    return [Math.cos(h), ax * s, ay * s, az * s];
+  }
+
+  function qNormalize(q) {
+    var l = Math.sqrt(q[0] * q[0] + q[1] * q[1] + q[2] * q[2] + q[3] * q[3]);
+    if (l === 0) return;
+    q[0] /= l; q[1] /= l; q[2] /= l; q[3] /= l;
+  }
 
   /* --- Fibonacci sphere distribution --- */
   function fibonacciSphere(n) {
@@ -51,20 +87,13 @@
     return pts;
   }
 
-  /* --- 3D → 2D perspective projection --- */
-  var rotX = 0, rotY = 0;
-  var rotVelX = 0, rotVelY = 0;
-  var cx, cy;
+  /* --- Orientation state + 3D → 2D projection --- */
+  var orientation = [1, 0, 0, 0];   // accumulated rotation quaternion
+  var cx, cy, cloudW, cloudH;
 
   function project(x, y, z) {
-    // Rotate around Y axis
-    var cosY = Math.cos(rotY), sinY = Math.sin(rotY);
-    var x1 = x * cosY + z * sinY;
-    var z1 = -x * sinY + z * cosY;
-    // Rotate around X axis
-    var cosX = Math.cos(rotX), sinX = Math.sin(rotX);
-    var y1 = y * cosX - z1 * sinX;
-    var z2 = y * sinX + z1 * cosX;
+    var v = qRotate([x, y, z], orientation);
+    var x1 = v[0], y1 = v[1], z2 = v[2];
 
     // Perspective divide
     var fov = FOV / (FOV + z2 * SPHERE_RADIUS);
@@ -98,12 +127,24 @@
   var isDragging = false;
   var hasMoved = false;             // distinguish drag from click
   var lastClientX = 0, lastClientY = 0;
+  var dragAxis = [0, 1, 0];         // last drag rotation axis (for inertia)
+  var dragSpeed = 0;                // last drag angular velocity
   var rAF = null;
   var idleTimer = 0;
   var running = true;
 
-  function clampRotX() {
-    rotX = Math.max(MIN_ROT_X, Math.min(MAX_ROT_X, rotX));
+  /* --- Map screen point onto the trackball --- */
+  function trackballPoint(localX, localY) {
+    var r = (Math.min(cloudW, cloudH) / 2) * 0.7;
+    if (r === 0) return [0, 0, 1];
+    var x = (localX - cx) / r;
+    var y = (localY - cy) / r;
+    var d2 = x * x + y * y;
+    if (d2 <= 1) {
+      return [x, y, Math.sqrt(1 - d2)];
+    }
+    var len = Math.sqrt(d2);
+    return [x / len, y / len, 0];
   }
 
   /* --- Start drag --- */
@@ -118,11 +159,13 @@
     if (!rAF) rAF = requestAnimationFrame(animate);
   });
 
-  /* --- Track mouse + rotate on drag --- */
+  /* --- Track mouse + rotate on drag (trackball) --- */
   window.addEventListener('mousemove', function (e) {
     var rect = cloud.getBoundingClientRect();
     cx = rect.width / 2;
     cy = rect.height / 2;
+    cloudW = rect.width;
+    cloudH = rect.height;
 
     var inBounds =
       e.clientX >= rect.left && e.clientX <= rect.right &&
@@ -136,11 +179,26 @@
       lastClientX = e.clientX;
       lastClientY = e.clientY;
       if (Math.abs(dx) + Math.abs(dy) > 1) hasMoved = true;
-      rotY += dx * DRAG_SENSITIVITY;
-      rotX += dy * DRAG_SENSITIVITY;
-      clampRotX();
-      rotVelY = dx * DRAG_SENSITIVITY * 0.5;
-      rotVelX = dy * DRAG_SENSITIVITY * 0.5;
+
+      // Arcball: rotation that takes the previous cursor point to the new one.
+      var p1 = trackballPoint(e.clientX - rect.left, e.clientY - rect.top);
+      var p0 = trackballPoint(e.clientX - rect.left - dx, e.clientY - rect.top - dy);
+      var ax = p0[1] * p1[2] - p0[2] * p1[1];
+      var ay = p0[2] * p1[0] - p0[0] * p1[2];
+      var az = p0[0] * p1[1] - p0[1] * p1[0];
+      var aLen = Math.sqrt(ax * ax + ay * ay + az * az);
+      var dot = p0[0] * p1[0] + p0[1] * p1[1] + p0[2] * p1[2];
+
+      if (aLen > 1e-6) {
+        // Negate the angle so the sphere's surface follows the cursor
+        // (grab-and-drag), instead of rotating against it.
+        var ang = -Math.acos(Math.min(1, Math.max(-1, dot)));
+        var dq = qFromAxisAngle(ax / aLen, ay / aLen, az / aLen, ang);
+        orientation = qMul(dq, orientation);
+        qNormalize(orientation);
+        dragAxis = [ax / aLen, ay / aLen, az / aLen];
+        dragSpeed = ang;
+      }
     }
     if (!rAF) rAF = requestAnimationFrame(animate);
   });
@@ -150,6 +208,12 @@
     if (!isDragging) return;
     isDragging = false;
     cloud.classList.remove('dragging');
+  });
+
+  /* --- Clear hover when the pointer leaves the cloud --- */
+  cloud.addEventListener('mouseleave', function () {
+    mouseX = NaN;
+    mouseY = NaN;
   });
 
   /* --- Suppress tag navigation after a drag --- */
@@ -169,22 +233,23 @@
 
     if (!isDragging) {
       // Inertia, then slow idle auto-rotation
-      var speed = Math.abs(rotVelX) + Math.abs(rotVelY);
-      if (speed > 0.00005) {
-        rotY += rotVelY;
-        rotX += rotVelX;
-        rotVelX *= DRAG_INERTIA;
-        rotVelY *= DRAG_INERTIA;
-        clampRotX();
+      if (Math.abs(dragSpeed) > 0.00005) {
+        var dq = qFromAxisAngle(dragAxis[0], dragAxis[1], dragAxis[2], dragSpeed);
+        orientation = qMul(dq, orientation);
+        qNormalize(orientation);
+        dragSpeed *= DRAG_INERTIA;
       } else {
-        rotVelX = 0;
-        rotVelY = 0;
+        dragSpeed = 0;
         idleTimer += 0.016;
-        rotY += AUTO_ROTATE_SPEED + Math.sin(idleTimer) * 0.0008;
-        rotX += Math.cos(idleTimer * 0.6) * 0.0004;
-        clampRotX();
+        var dq2 = qFromAxisAngle(0, 1, 0, AUTO_ROTATE_SPEED);
+        orientation = qMul(dq2, orientation);
+        qNormalize(orientation);
       }
     }
+
+    // Basis vectors of the screen axes in object space (for screen→3D push)
+    var bx = qRotate([1, 0, 0], orientation);
+    var by = qRotate([0, 1, 0], orientation);
 
     var maxVel = 0;
 
@@ -202,15 +267,9 @@
           var d = Math.sqrt(dsq);
           var push = (1 - d / SCATTER_RADIUS) * SCATTER_STRENGTH;
           var ux = dxs / d, uy = dys / d;
-          // Convert the screen-space push direction back into 3D using the
-          // rotation basis vectors of the two screen axes.
-          var bx = Math.cos(rotY), bz = Math.sin(rotY);
-          var byx = Math.sin(rotY) * Math.sin(rotX);
-          var byy = Math.cos(rotX);
-          var byz = -Math.cos(rotY) * Math.sin(rotX);
-          p.vx += push * (ux * bx + uy * byx);
-          p.vy += push * (uy * byy);
-          p.vz += push * (ux * bz + uy * byz);
+          p.vx += push * (ux * bx[0] + uy * by[0]);
+          p.vy += push * (ux * bx[1] + uy * by[1]);
+          p.vz += push * (ux * bx[2] + uy * by[2]);
         }
       }
 
@@ -266,10 +325,14 @@
     var rect = cloud.getBoundingClientRect();
     cx = rect.width / 2;
     cy = rect.height / 2;
+    cloudW = rect.width;
+    cloudH = rect.height;
   });
 
   var rect = cloud.getBoundingClientRect();
   cx = rect.width / 2;
   cy = rect.height / 2;
+  cloudW = rect.width;
+  cloudH = rect.height;
   rAF = requestAnimationFrame(animate);
 })();
