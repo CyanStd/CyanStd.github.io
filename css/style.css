@@ -1206,6 +1206,14 @@ figure.highlight .token.deleted {
   margin: 0 auto;
   /* Will be overridden to flex by .tag-cloud-fallback */
   overflow: hidden;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
+}
+
+.tag-cloud-3d.dragging {
+  cursor: grabbing;
 }
 
 /* Fallback when JS is disabled or on touch devices */
@@ -1218,6 +1226,10 @@ figure.highlight .token.deleted {
   height: auto;
   overflow: visible;
   padding: 1rem 0;
+  cursor: default;
+  user-select: auto;
+  -webkit-user-select: auto;
+  touch-action: auto;
 }
 
 .tag-cloud-item {
