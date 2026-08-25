@@ -100,6 +100,7 @@
   var m = qToMatrix(orientation);   // rotation matrix, rebuilt each frame
   var cx = 0, cy = 0;               // sphere center (cloud-local)
   var rLeft = 0, rTop = 0, rW = 0, rH = 0; // cached container rect
+  var rectDirty = false;
 
   function refreshRect() {
     var r = cloud.getBoundingClientRect();
@@ -107,6 +108,12 @@
     rW = r.width; rH = r.height;
     cx = rW / 2;
     cy = rH / 2;
+  }
+
+  function invalidateRect() {
+    rectDirty = true;
+    // Keep cx/cy/rW/rH usable even if no frame runs while dirty.
+    refreshRect();
   }
 
   /* Reusable projection result (zero allocation per call) */
@@ -171,6 +178,9 @@
     t.classList.add('selecting');
     cloud.classList.add('selecting');
     dragSpeed = 0; // kill residual inertia so the target stays still
+    // Cover the case where the loop is stopped (settled) and the pointer
+    // is stationary: without this the dim fade would never start.
+    if (!rAF && running) rAF = requestAnimationFrame(animate);
   }
 
   function clearFocus() {
@@ -258,11 +268,21 @@
     clearFocus();
   });
 
-  /* --- Clear hover when pointer leaves the cloud --- */
+  /* --- Clear hover when pointer leaves the cloud or the window --- */
   cloud.addEventListener('mouseleave', function () {
     mouseX = NaN;
     mouseY = NaN;
     clearFocus();
+  });
+
+  // relatedTarget === null means the pointer left the browser window:
+  // without this, hasMouse would stay true forever and the rAF loop
+  // would keep spinning (scatter + style churn) with stale coordinates.
+  window.addEventListener('mouseout', function (e) {
+    if (!e.relatedTarget) {
+      mouseX = NaN;
+      mouseY = NaN;
+    }
   });
 
   /* --- Suppress tag navigation after a drag --- */
@@ -395,9 +415,9 @@
     io.observe(cloud);
   }
 
-  /* --- Resize / scroll: refresh the cached rect --- */
-  window.addEventListener('resize', refreshRect);
-  window.addEventListener('scroll', refreshRect, { passive: true });
+  /* --- Resize / scroll: refresh the cached rect (coalesced per frame) --- */
+  window.addEventListener('resize', invalidateRect);
+  window.addEventListener('scroll', invalidateRect, { passive: true });
 
   /* --- Init --- */
   refreshRect();
